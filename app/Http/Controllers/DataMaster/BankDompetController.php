@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\DataMaster;
 
 use App\Http\Controllers\Controller;
+use App\Models\BankDompet;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class BankDompetController extends Controller
 {
@@ -12,7 +14,8 @@ class BankDompetController extends Controller
      */
     public function index()
     {
-        return view('data-master.bank-dompet.index');
+        $bank_dompet = BankDompet::orderBy('jenis')->get();
+        return view('data-master.bank-dompet.index',compact('bank_dompet'));
     }
 
     /**
@@ -28,7 +31,18 @@ class BankDompetController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validator = Validator::make($request->all(), [
+            "nama_bank_dompet" => ["required","max:100"],
+        ]);
+        if ($validator->fails()) {
+            return back()->with('error','Gagal, Periksa kembali inputan!')->withErrors($validator)->withInput();
+        }
+        BankDompet::create([
+            'jenis' => $request->jenis,
+            'nama_bank_dompet' => $request->nama_bank_dompet,
+        ]);
+        $alert = 'Berhasil menyimpan ' . $request->jenis . ' ' . $request->nama_bank_dompet;
+        return redirect()->route('data-master.bank-dompet.index')->with('success',$alert);
     }
 
     /**
