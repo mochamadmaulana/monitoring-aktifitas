@@ -41,7 +41,7 @@ class BankDompetController extends Controller
             'jenis' => $request->jenis,
             'nama_bank_dompet' => $request->nama_bank_dompet,
         ]);
-        $alert = 'Berhasil menyimpan ' . $request->jenis . ' ' . $request->nama_bank_dompet;
+        $alert = 'Berhasil menyimpan : ' . $request->jenis . ' ' . $request->nama_bank_dompet;
         return redirect()->route('data-master.bank-dompet.index')->with('success',$alert);
     }
 
@@ -58,7 +58,8 @@ class BankDompetController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $bank_dompet = BankDompet::findOrFail($id);
+        return view('data-master.bank-dompet.edit',compact('bank_dompet'));
     }
 
     /**
@@ -66,7 +67,18 @@ class BankDompetController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $validator = Validator::make($request->all(), [
+            "nama_bank_dompet" => ["required","max:100"],
+        ]);
+        if ($validator->fails()) {
+            return back()->with('error','Gagal, Periksa kembali inputan!')->withErrors($validator)->withInput();
+        }
+        $bank_dompet = BankDompet::findOrFail($id);
+        $bank_dompet->jenis = $request->jenis;
+        $bank_dompet->nama_bank_dompet = $request->nama_bank_dompet;
+        $bank_dompet->update();
+        $alert = 'Berhasil mengedit menjadi : ' . $request->jenis . ' ' . $request->nama_bank_dompet;
+        return redirect()->route('data-master.bank-dompet.index')->with('success',$alert);
     }
 
     /**
