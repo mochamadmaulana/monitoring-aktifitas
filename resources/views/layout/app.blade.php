@@ -5,13 +5,17 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>{{ env('APP_NAME') ?? 'Monitoring Aktifitas' }}</title>
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <title>{{ $title_dua ?? '' }} | {{ env('APP_NAME') ?? 'Monas' }}</title>
     <!-- CSS files -->
     <link href="{{ asset('frontend') }}/dist/css/tabler.min.css" rel="stylesheet" />
     <link href="{{ asset('frontend') }}/dist/css/tabler-flags.min.css" rel="stylesheet" />
     <link href="{{ asset('frontend') }}/dist/css/tabler-payments.min.css" rel="stylesheet" />
     <link href="{{ asset('frontend') }}/dist/css/tabler-vendors.min.css" rel="stylesheet" />
     <link href="{{ asset('frontend') }}/dist/css/demo.min.css" rel="stylesheet" />
+    <!-- Select2 -->
+    <link rel="stylesheet" href="{{ asset('frontend') }}/dist/libs/select2/select2.min.css" />
+    <link rel="stylesheet" href="{{ asset('frontend') }}/dist/libs/select2/select2-bootstrap-5-theme.min.css" />
     <style>
         @import url('https://rsms.me/inter/inter.css');
 
@@ -70,7 +74,6 @@
                             <li class="nav-item {{ Request::is('dashboard*') ? 'active' : '' }}">
                                 <a class="nav-link" href="{{ route('dashboard') }}">
                                     <span class="nav-link-icon d-md-none d-lg-inline-block {{ Request::is('dashboard*') ? 'text-primary' : '' }}">
-                                        <!-- Download SVG icon from http://tabler-icons.io/i/home -->
                                         <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M5 12l-2 0l9 -9l9 9l-2 0" /><path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" /><path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" /></svg>
                                     </span>
                                     <span class="nav-link-title">
@@ -321,11 +324,10 @@
             </div>
         </div>
     </div>
-    <!-- Libs JS -->
-    <script src="{{ asset('frontend') }}/dist/libs/apexcharts/dist/apexcharts.min.js" defer></script>
-    <script src="{{ asset('frontend') }}/dist/libs/jsvectormap/dist/js/jsvectormap.min.js" defer></script>
-    <script src="{{ asset('frontend') }}/dist/libs/jsvectormap/dist/maps/world.js" defer></script>
-    <script src="{{ asset('frontend') }}/dist/libs/jsvectormap/dist/maps/world-merc.js" defer></script>
+    <!-- Select2 -->
+    <script src="{{ asset('frontend') }}/dist/libs/select2/jquery-3.7.1.min.js"></script>
+    <script src="{{ asset('frontend') }}/dist/libs/select2/select2.min.js"></script>
+
     <!-- Tabler Core -->
     <script src="{{ asset('frontend') }}/dist/js/tabler.min.js" defer></script>
     <script src="{{ asset('frontend') }}/dist/js/demo.min.js" defer></script>

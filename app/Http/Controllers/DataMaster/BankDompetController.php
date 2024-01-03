@@ -14,7 +14,7 @@ class BankDompetController extends Controller
      */
     public function index()
     {
-        $bank_dompet = BankDompet::orderBy('jenis')->get();
+        $bank_dompet = BankDompet::latest()->get();
         return view('data-master.bank-dompet.index',compact('bank_dompet'));
     }
 
@@ -42,7 +42,7 @@ class BankDompetController extends Controller
             'nama_bank_dompet' => $request->nama_bank_dompet,
         ]);
         $alert = 'Berhasil menyimpan : ' . $request->jenis . ' ' . $request->nama_bank_dompet;
-        return redirect()->route('data-master.bank-dompet.index')->with('success',$alert);
+        return back()->with('success',$alert);
     }
 
     /**
@@ -86,6 +86,11 @@ class BankDompetController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $bank_dompet = BankDompet::findOrFail($id);
+        $bank_dompet->delete();
+        session()->flash('success','Berhasil menghapus : '.$bank_dompet->nama_bank_dompet);
+        return response()->json([
+            'success' => true,
+        ],200);
     }
 }

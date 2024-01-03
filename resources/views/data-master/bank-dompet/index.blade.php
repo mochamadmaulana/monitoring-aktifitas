@@ -68,23 +68,14 @@
                                         <a class="dropdown-item" href="{{ route('data-master.bank-dompet.edit',$bd->id) }}">
                                             Edit
                                         </a>
-                                        <a class="dropdown-item" href="#">
+                                        {{-- <a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#modal-hapus"> --}}
+                                        <button class="dropdown-item" type="button" onclick="loadDeleteModal({{ $bd->id }}, `{{ $bd->nama_bank_dompet }}`)">
                                             Hapus
-                                        </a>
+                                        </button>
                                     </div>
                                 </div>
                             </div>
                         </td>
-                        {{-- <td>
-                            <a href="#" class="fs-5">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-edit" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M7 7h-1a2 2 0 0 0 -2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2 -2v-1" /><path d="M20.385 6.585a2.1 2.1 0 0 0 -2.97 -2.97l-8.415 8.385v3h3l8.385 -8.415z" /><path d="M16 5l3 3" /></svg>
-                                Edit
-                            </a>
-                            <a href="#" class="mx-1 fs-5">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-trash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M4 7l16 0" /><path d="M10 11l0 6" /><path d="M14 11l0 6" /><path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12" /><path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3" /></svg>
-                                Hapus
-                            </a>
-                        </td> --}}
                     </tr>
                     @endforeach
                 </tbody>
@@ -93,3 +84,60 @@
     </div>
 </div>
 @endsection
+
+@push('modal')
+<div class="modal modal-blur fade" id="modal-hapus" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Konfirmasi Hapus Data</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Yakin, untuk menghapus : <span id="nama-bank_dompet"></span>
+            </div>
+            <div class="modal-footer">
+                <a href="#" class="btn btn-link link-secondary" data-bs-dismiss="modal">
+                    Batal
+                </a>
+                <button type="button" id="modal-confirm_delete" class="btn btn-danger ms-auto" data-bs-dismiss="modal">
+                    Hapus
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+@endpush
+
+@push('js')
+<script>
+function loadDeleteModal(id, name) {
+    $('#nama-bank_dompet').html(name);
+    $('#modal-confirm_delete').attr('onclick', `confirmDelete(${id})`);
+    $('#modal-hapus').modal('show');
+}
+function confirmDelete(id) {
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+    $.ajax({
+        url: '{{ url('data-master/bank-dompet') }}/' + id,
+        type: 'delete',
+        success: function(response){
+            //hide modal
+            $('#modal-hapus').modal('hide');
+            //show success message
+            if(response.success){
+                location.reload();
+            }
+        },
+        error: function (error) {
+            // Error logic goes here..!
+            alert('Something error, please try again!')
+        }
+    });
+}
+</script>
+@endpush
