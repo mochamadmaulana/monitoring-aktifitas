@@ -14,7 +14,7 @@ class BankDompetController extends Controller
      */
     public function index()
     {
-        $bank_dompet = BankDompet::latest()->get();
+        $bank_dompet = BankDompet::latest()->search(request('search'))->paginate(10)->onEachSide(0)->withQueryString();
         return view('data-master.bank-dompet.index',compact('bank_dompet'));
     }
 

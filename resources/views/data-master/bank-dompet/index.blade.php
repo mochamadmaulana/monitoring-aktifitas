@@ -39,13 +39,15 @@
                 <div class="ms-auto text-muted">
                     Search:
                     <div class="mx-2 d-inline-block">
-                        <input type="search" name="search" class="form-control form-control-md" placeholder="Cari disini..">
+                        <form action="">
+                        <input type="search" name="search" class="form-control form-control-md" value="{{ request('search') }}" placeholder="Cari disini.." autocomplete="off">
+                        </form>
                     </div>
                 </div>
             </div>
         </div>
         <div class="table-responsive">
-            <table class="table table-vcenter table-mobile-md card-table table-hover">
+            <table class="table table-vcenter card-table table-hover">
                 <thead>
                     <tr>
                         <th>Bank/E-Dompet</th>
@@ -80,6 +82,9 @@
                     @endforeach
                 </tbody>
             </table>
+        </div>
+        <div class="col-lg-12 p-3">
+            <span class="float-right">{{ $bank_dompet->links() }}</span>
         </div>
     </div>
 </div>
