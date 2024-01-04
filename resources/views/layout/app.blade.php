@@ -48,10 +48,8 @@
                 </h1>
                 <div class="navbar-nav flex-row order-md-last">
                     <div class="nav-item dropdown">
-                        <a href="#" class="nav-link d-flex lh-1 text-reset p-0" data-bs-toggle="dropdown"
-                            aria-label="Open user menu">
-                            <span class="avatar avatar-sm"
-                                style="background-image: url(./static/avatars/000m.jpg)"></span>
+                        <a href="#" class="nav-link d-flex lh-1 text-reset p-0" data-bs-toggle="dropdown" aria-label="Open user menu">
+                            <span class="avatar avatar-sm" style="background-image: url({{ asset('frontend/dist/img/default.jpg') }})"></span>
                             <div class="d-none d-xl-block ps-2">
                                 <div>Nama Lengkap</div>
                                 <div class="mt-1 small text-muted">Pekerjaan</div>
@@ -81,10 +79,10 @@
                                     </span>
                                 </a>
                             </li>
-                            <li class="nav-item dropdown {{ Request::is('data-master/bank-dompet*') ? 'active' : '' }}">
+                            <li class="nav-item dropdown {{ Request::is('data-master*') ? 'active' : '' }}">
                                 <a class="nav-link dropdown-toggle" href="#navbar-base" data-bs-toggle="dropdown"
                                     data-bs-auto-close="outside" role="button" aria-expanded="false">
-                                    <span class="nav-link-icon d-md-none d-lg-inline-block {{ Request::is('data-master/bank-dompet*') ? 'text-primary' : '' }}">
+                                    <span class="nav-link-icon d-md-none d-lg-inline-block {{ Request::is('data-master*') ? 'text-primary' : '' }}">
                                         <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-server" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M3 4m0 3a3 3 0 0 1 3 -3h12a3 3 0 0 1 3 3v2a3 3 0 0 1 -3 3h-12a3 3 0 0 1 -3 -3z" /><path d="M3 12m0 3a3 3 0 0 1 3 -3h12a3 3 0 0 1 3 3v2a3 3 0 0 1 -3 3h-12a3 3 0 0 1 -3 -3z" /><path d="M7 8l0 .01" /><path d="M7 16l0 .01" /></svg>
                                     </span>
                                     <span class="nav-link-title">
@@ -99,6 +97,9 @@
                                             </a>
                                             <a class="dropdown-item" href="./blank.html">
                                                 Rek. Bank/E-Dompet
+                                            </a>
+                                            <a class="dropdown-item {{ Request::is('data-master/pengguna*') ? 'active' : '' }}" href="{{ route('data-master.pengguna.index') }}">
+                                                Pengguna
                                             </a>
                                         </div>
                                     </div>
