@@ -41,7 +41,7 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <h1 class="navbar-brand navbar-brand-autodark d-none-navbar-horizontal pe-0 pe-md-3">
-                    <a href="{{ route('dashboard') }}">
+                    <a href="{{ route('admin.dashboard') }}">
                         <img src="{{ asset('frontend/dist/img/logo-small.svg') }}" width="110" height="32" alt="Logo Brands" class="navbar-brand-image">
                         Monas
                     </a>
@@ -69,9 +69,9 @@
                 <div class="navbar">
                     <div class="container-xl">
                         <ul class="navbar-nav">
-                            <li class="nav-item {{ Request::is('dashboard*') ? 'active' : '' }}">
-                                <a class="nav-link" href="{{ route('dashboard') }}">
-                                    <span class="nav-link-icon d-md-none d-lg-inline-block {{ Request::is('dashboard*') ? 'text-primary' : '' }}">
+                            <li class="nav-item {{ Request::is('admin/dashboard*') ? 'active' : '' }}">
+                                <a class="nav-link" href="{{ route('admin.dashboard') }}">
+                                    <span class="nav-link-icon d-md-none d-lg-inline-block {{ Request::is('admin/dashboard*') ? 'text-primary' : '' }}">
                                         <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M5 12l-2 0l9 -9l9 9l-2 0" /><path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" /><path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" /></svg>
                                     </span>
                                     <span class="nav-link-title">
@@ -79,10 +79,10 @@
                                     </span>
                                 </a>
                             </li>
-                            <li class="nav-item dropdown {{ Request::is('data-master*') ? 'active' : '' }}">
+                            <li class="nav-item dropdown {{ Request::is('admin/data-master*') ? 'active' : '' }}">
                                 <a class="nav-link dropdown-toggle" href="#navbar-base" data-bs-toggle="dropdown"
                                     data-bs-auto-close="outside" role="button" aria-expanded="false">
-                                    <span class="nav-link-icon d-md-none d-lg-inline-block {{ Request::is('data-master*') ? 'text-primary' : '' }}">
+                                    <span class="nav-link-icon d-md-none d-lg-inline-block {{ Request::is('admin/data-master*') ? 'text-primary' : '' }}">
                                         <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-server" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M3 4m0 3a3 3 0 0 1 3 -3h12a3 3 0 0 1 3 3v2a3 3 0 0 1 -3 3h-12a3 3 0 0 1 -3 -3z" /><path d="M3 12m0 3a3 3 0 0 1 3 -3h12a3 3 0 0 1 3 3v2a3 3 0 0 1 -3 3h-12a3 3 0 0 1 -3 -3z" /><path d="M7 8l0 .01" /><path d="M7 16l0 .01" /></svg>
                                     </span>
                                     <span class="nav-link-title">
@@ -92,13 +92,13 @@
                                 <div class="dropdown-menu">
                                     <div class="dropdown-menu-columns">
                                         <div class="dropdown-menu-column">
-                                            <a class="dropdown-item {{ Request::is('data-master/bank-dompet*') ? 'active' : '' }}" href="{{ route('data-master.bank-dompet.index') }}">
+                                            <a class="dropdown-item {{ Request::is('admin/data-master/bank-dompet*') ? 'active' : '' }}" href="{{ route('admin.data-master.bank-dompet.index') }}">
                                                 Bank/E-Dompet
                                             </a>
                                             <a class="dropdown-item" href="./blank.html">
                                                 Rek. Bank/E-Dompet
                                             </a>
-                                            <a class="dropdown-item {{ Request::is('data-master/pengguna*') ? 'active' : '' }}" href="{{ route('data-master.pengguna.index') }}">
+                                            <a class="dropdown-item {{ Request::is('admin/data-master/pengguna*') ? 'active' : '' }}" href="{{ route('admin.data-master.pengguna.index') }}">
                                                 Pengguna
                                             </a>
                                         </div>

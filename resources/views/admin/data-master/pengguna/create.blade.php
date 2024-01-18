@@ -1,13 +1,13 @@
-@extends('layout.app',['title_satu'=>'Form Tambah','title_dua'=>'Pengguna'])
+@extends('layout.app_admin',['title_satu'=>'Form Tambah','title_dua'=>'Pengguna'])
 
 @push('btn-page-header')
 <div class="col-auto ms-auto d-print-none">
     <div class="btn-list">
-        <a href="{{ route('data-master.pengguna.index') }}" class="btn btn-secondary d-none d-sm-inline-block">
+        <a href="{{ route('admin.data-master.pengguna.index') }}" class="btn btn-secondary d-none d-sm-inline-block">
             <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-arrow-back" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M9 11l-4 4l4 4m-4 -4h11a4 4 0 0 0 0 -8h-1" /></svg>
             Kembali
         </a>
-        <a href="{{ route('data-master.pengguna.index') }}" class="btn btn-secondary d-sm-none btn-icon">
+        <a href="{{ route('admin.data-master.pengguna.index') }}" class="btn btn-secondary d-sm-none btn-icon">
             <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-arrow-back" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M9 11l-4 4l4 4m-4 -4h11a4 4 0 0 0 0 -8h-1" /></svg>
         </a>
     </div>
@@ -26,7 +26,7 @@
     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
 </div>
 @endif
-<form action="{{ route('data-master.pengguna.store') }}" method="POST" class="card">
+<form action="{{ route('admin.data-master.pengguna.store') }}" method="POST" class="card">
     @csrf
     <div class="card-body">
         <div class="row">
@@ -40,9 +40,7 @@
             <div class="col-lg-4 mb-3">
                 <label class="form-label required">
                     Username
-                    <a href="javascript:void(0);" class="text-yellow" data-bs-toggle="modal" data-bs-target="#modal-username">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-alert-triangle" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 9v4" /><path d="M10.363 3.591l-8.106 13.534a1.914 1.914 0 0 0 1.636 2.871h16.214a1.914 1.914 0 0 0 1.636 -2.87l-8.106 -13.536a1.914 1.914 0 0 0 -3.274 0z" /><path d="M12 16h.01" /></svg>
-                    </a>
+                    <span class="text-yellow" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Huruf kecil | max 15"><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-alert-circle-filled" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 2c5.523 0 10 4.477 10 10a10 10 0 0 1 -19.995 .324l-.005 -.324l.004 -.28c.148 -5.393 4.566 -9.72 9.996 -9.72zm.01 13l-.127 .007a1 1 0 0 0 0 1.986l.117 .007l.127 -.007a1 1 0 0 0 0 -1.986l-.117 -.007zm-.01 -8a1 1 0 0 0 -.993 .883l-.007 .117v4l.007 .117a1 1 0 0 0 1.986 0l.007 -.117v-4l-.007 -.117a1 1 0 0 0 -.993 -.883z" stroke-width="0" fill="currentColor" /></svg></span>
                 </label>
                 <div>
                     <input type="text" name="username" class="form-control @error('username') is-invalid @enderror" value="{{ @old('username') }}" placeholder="Username..">

@@ -11,10 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('bank_dompet', function (Blueprint $table) {
+        Schema::create('rekening_bank_dompet', function (Blueprint $table) {
             $table->id();
-            $table->enum('jenis',['Bank','Dompet']);
-            $table->string('nama',100);
+            $table->foreignId('bank_dompet_id');
+            $table->string('nomor_rekening');
             $table->timestamps();
         });
     }
@@ -24,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('bank_dompet');
+        Schema::dropIfExists('rekening_bank_dompet');
     }
 };

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\DataMaster;
+namespace App\Http\Controllers\Admin\DataMaster;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
@@ -16,7 +16,7 @@ class PenggunaController extends Controller
     public function index()
     {
         $pengguna = User::latest()->search(request('search'))->paginate(10)->onEachSide(0)->withQueryString();
-        return view('data-master.pengguna.index',compact('pengguna'));
+        return view('admin.data-master.pengguna.index',compact('pengguna'));
     }
 
     /**
@@ -24,7 +24,7 @@ class PenggunaController extends Controller
      */
     public function create()
     {
-        return view('data-master.pengguna.create');
+        return view('admin.data-master.pengguna.create');
     }
 
     /**
@@ -60,7 +60,8 @@ class PenggunaController extends Controller
      */
     public function show(string $id)
     {
-        return back()->with('error','Feature is under maintenance!');
+        // $pengguna = User::findOrFail($id);
+        // return view('admin.data-master.pengguna.edit',compact('pengguna'));
     }
 
     /**
@@ -68,7 +69,9 @@ class PenggunaController extends Controller
      */
     public function edit(string $id)
     {
-        return back()->with('error','Feature is under maintenance!');
+        // return back()->with('error','Feature is under maintenance!');
+        $pengguna = User::findOrFail($id);
+        return view('admin.data-master.pengguna.edit',compact('pengguna'));
     }
 
     /**
@@ -76,7 +79,27 @@ class PenggunaController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        return back()->with('error','Feature is under maintenance!');
+        $validator = Validator::make($request->all(), [
+            "nama_lengkap" => ["required"],
+            "username" => ["required","unique:users,username,".$id.",id"],
+            "email" => ["required","email"],
+        ]);
+        if ($validator->fails()) {
+            return back()->with('error','Gagal, Periksa kembali inputan!')->withErrors($validator)->withInput();
+        }
+        if($request->username != trim(strtolower($request->username))){
+            return back()->with('error','Gagal, Format username tidak sesuai!')->withErrors($validator)->withInput();
+        }
+        $pengguna = User::findOrFail($id);
+        $pengguna->update([
+            'nama_lengkap' => $request->nama_lengkap,
+            'username' => strtolower($request->username),
+            'email' => $request->email,
+            'role' => $request->role,
+            'aktif' => $request->status,
+        ]);
+        $alert = 'Berhasil mengedit : ' . $request->role . ' ' . $request->nama_lengkap;
+        return redirect()->route('admin.data-master.pengguna.index')->with('success',$alert);
     }
 
     /**
@@ -84,6 +107,11 @@ class PenggunaController extends Controller
      */
     public function destroy(string $id)
     {
-        return back()->with('error','Feature is under maintenance!');
+        $pengguna = User::findOrFail($id);
+        $pengguna->delete();
+        session()->flash('success','Berhasil menghapus pengguna : '.$pengguna->role.' '.$pengguna->nama_lengkap);
+        return response()->json([
+            'success' => true,
+        ],200);
     }
 }

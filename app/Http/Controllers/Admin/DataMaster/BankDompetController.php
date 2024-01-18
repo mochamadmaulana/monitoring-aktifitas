@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\DataMaster;
+namespace App\Http\Controllers\Admin\DataMaster;
 
 use App\Http\Controllers\Controller;
 use App\Models\BankDompet;
@@ -15,7 +15,7 @@ class BankDompetController extends Controller
     public function index()
     {
         $bank_dompet = BankDompet::latest()->search(request('search'))->paginate(10)->onEachSide(0)->withQueryString();
-        return view('data-master.bank-dompet.index',compact('bank_dompet'));
+        return view('admin.data-master.bank-dompet.index',compact('bank_dompet'));
     }
 
     /**
@@ -23,7 +23,7 @@ class BankDompetController extends Controller
      */
     public function create()
     {
-        return view('data-master.bank-dompet.create');
+        return view('admin.data-master.bank-dompet.create');
     }
 
     /**
@@ -39,7 +39,7 @@ class BankDompetController extends Controller
         }
         BankDompet::create([
             'jenis' => $request->jenis,
-            'nama_bank_dompet' => $request->nama_bank_dompet,
+            'nama' => $request->nama_bank_dompet,
         ]);
         $alert = 'Berhasil menyimpan : ' . $request->jenis . ' ' . $request->nama_bank_dompet;
         return back()->with('success',$alert);
@@ -59,7 +59,7 @@ class BankDompetController extends Controller
     public function edit(string $id)
     {
         $bank_dompet = BankDompet::findOrFail($id);
-        return view('data-master.bank-dompet.edit',compact('bank_dompet'));
+        return view('admin.data-master.bank-dompet.edit',compact('bank_dompet'));
     }
 
     /**
@@ -75,10 +75,10 @@ class BankDompetController extends Controller
         }
         $bank_dompet = BankDompet::findOrFail($id);
         $bank_dompet->jenis = $request->jenis;
-        $bank_dompet->nama_bank_dompet = $request->nama_bank_dompet;
+        $bank_dompet->nama = $request->nama_bank_dompet;
         $bank_dompet->update();
         $alert = 'Berhasil mengedit menjadi : ' . $request->jenis . ' ' . $request->nama_bank_dompet;
-        return redirect()->route('data-master.bank-dompet.index')->with('success',$alert);
+        return redirect()->route('admin.data-master.bank-dompet.index')->with('success',$alert);
     }
 
     /**
