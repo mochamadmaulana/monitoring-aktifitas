@@ -60,4 +60,8 @@ class User extends Authenticatable
                 // )
         );
     }
+    function rekening_bank_dompet()
+    {
+        return $this->hasMany(RekeningBankDompet::class);
+    }
 }

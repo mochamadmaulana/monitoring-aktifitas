@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('rekening_bank_dompet', function (Blueprint $table) {
             $table->id();
             $table->foreignId('bank_dompet_id');
+            $table->foreignId('user_id');
             $table->string('nomor_rekening');
             $table->timestamps();
         });

@@ -109,7 +109,7 @@ class PenggunaController extends Controller
     {
         $pengguna = User::findOrFail($id);
         $pengguna->delete();
-        session()->flash('success','Berhasil menghapus pengguna : '.$pengguna->role.' '.$pengguna->nama_lengkap);
+        session()->flash('success','Berhasil menghapus '.$pengguna->role.' '.$pengguna->nama_lengkap);
         return response()->json([
             'success' => true,
         ],200);

@@ -95,7 +95,7 @@
                                             <a class="dropdown-item {{ Request::is('admin/data-master/bank-dompet*') ? 'active' : '' }}" href="{{ route('admin.data-master.bank-dompet.index') }}">
                                                 Bank/E-Dompet
                                             </a>
-                                            <a class="dropdown-item" href="./blank.html">
+                                            <a class="dropdown-item {{ Request::is('admin/data-master/rekening-bank-dompet*') ? 'active' : '' }}" href="{{ route('admin.data-master.rekening-bank-dompet.index') }}">
                                                 Rek. Bank/E-Dompet
                                             </a>
                                             <a class="dropdown-item {{ Request::is('admin/data-master/pengguna*') ? 'active' : '' }}" href="{{ route('admin.data-master.pengguna.index') }}">

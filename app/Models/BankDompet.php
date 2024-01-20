@@ -22,4 +22,8 @@ class BankDompet extends Model
                 // )
         );
     }
+    function rekening_bank_dompet()
+    {
+        return $this->hasMany(RekeningBankDompet::class);
+    }
 }
