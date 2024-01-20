@@ -93,7 +93,7 @@
     <div class="col-sm-6 col-xl-6">
         <div class="card">
             <div class="card-header">
-                <h3 class="card-title">7 Aktifitas Terakhir</h3>
+                <h3 class="card-title">10 Kegiatan Terakhir</h3>
             </div>
             <div class="table-responsive">
                 <table class="table card-table table-vcenter">

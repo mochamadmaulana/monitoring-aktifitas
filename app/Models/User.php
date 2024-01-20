@@ -64,4 +64,8 @@ class User extends Authenticatable
     {
         return $this->hasMany(RekeningBankDompet::class);
     }
+    function pemasukan()
+    {
+        return $this->hasMany(Pemasukan::class);
+    }
 }
