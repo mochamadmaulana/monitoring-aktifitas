@@ -16,6 +16,8 @@
     <!-- Select2 -->
     <link rel="stylesheet" href="{{ asset('frontend') }}/dist/libs/select2/select2.min.css" />
     <link rel="stylesheet" href="{{ asset('frontend') }}/dist/libs/select2/select2-bootstrap-5-theme.min.css" />
+    <!-- Toastr -->
+    <link rel="stylesheet" href="{{ asset('frontend') }}/dist/libs/toastr/toastr.min.css" />
     <style>
         @import url('https://rsms.me/inter/inter.css');
 
@@ -92,11 +94,8 @@
                                 <div class="dropdown-menu">
                                     <div class="dropdown-menu-columns">
                                         <div class="dropdown-menu-column">
-                                            <a class="dropdown-item {{ Request::is('admin/data-master/bank-dompet*') ? 'active' : '' }}" href="{{ route('admin.data-master.bank-dompet.index') }}">
-                                                Bank/E-Dompet
-                                            </a>
-                                            <a class="dropdown-item {{ Request::is('admin/data-master/rekening-bank-dompet*') ? 'active' : '' }}" href="{{ route('admin.data-master.rekening-bank-dompet.index') }}">
-                                                Rek. Bank/E-Dompet
+                                            <a class="dropdown-item {{ Request::is('admin/data-master/rekening*') ? 'active' : '' }}" href="{{ route('admin.data-master.rekening.index') }}">
+                                                Rekening
                                             </a>
                                             <a class="dropdown-item {{ Request::is('admin/data-master/pengguna*') ? 'active' : '' }}" href="{{ route('admin.data-master.pengguna.index') }}">
                                                 Pengguna
@@ -105,8 +104,9 @@
                                     </div>
                                 </div>
                             </li>
-                            <li class="nav-item {{ Request::is('admin/pemasukan*') ? 'active' : '' }}">
-                                <a class="nav-link" href="{{ route('admin.pemasukan.index') }}">
+                            <li class="nav-item dropdown {{ Request::is('admin/pemasukan*') ? 'active' : '' }}">
+                                <a class="nav-link dropdown-toggle" href="#navbar-base" data-bs-toggle="dropdown"
+                                    data-bs-auto-close="outside" role="button" aria-expanded="false">
                                     <span class="nav-link-icon d-md-none d-lg-inline-block {{ Request::is('admin/pemasukan*') ? 'text-primary' : '' }}">
                                         <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-transfer-in" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M4 18v3h16v-14l-8 -4l-8 4v3" /><path d="M4 14h9" /><path d="M10 11l3 3l-3 3" /></svg>
                                     </span>
@@ -114,6 +114,18 @@
                                         Pemasukan
                                     </span>
                                 </a>
+                                <div class="dropdown-menu">
+                                    <div class="dropdown-menu-columns">
+                                        <div class="dropdown-menu-column">
+                                            <a class="dropdown-item {{ Request::is('admin/pemasukan/rekening*') ? 'active' : '' }}" href="{{ route('admin.pemasukan.rekening.index') }}">
+                                                Rekening
+                                            </a>
+                                            <a class="dropdown-item {{ Request::is('admin/pemasukan/cash*') ? 'active' : '' }}" href="{{ route('admin.pemasukan.cash.index') }}">
+                                                Cash
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="./form-elements.html">
@@ -318,10 +330,22 @@
     <!-- Select2 -->
     <script src="{{ asset('frontend') }}/dist/libs/select2/jquery-3.7.1.min.js"></script>
     <script src="{{ asset('frontend') }}/dist/libs/select2/select2.min.js"></script>
-
     <!-- Tabler Core -->
     <script src="{{ asset('frontend') }}/dist/js/tabler.min.js" defer></script>
     <script src="{{ asset('frontend') }}/dist/js/demo.min.js" defer></script>
+    <!-- Toastr -->
+    <script src="{{ asset('frontend') }}/dist/libs/toastr/toastr.min.js"></script>
+    <script src="{{ asset('frontend') }}/dist/libs/toastr/config.js"></script>
+    @if (session('success'))
+    <script>
+    toastr.success("{{ session('success') }}");
+    </script>
+    @endif
+    @if (session('error'))
+    <script>
+    toastr.error("{{ session('error') }}");
+    </script>
+    @endif
     @stack('js')
 </body>
 

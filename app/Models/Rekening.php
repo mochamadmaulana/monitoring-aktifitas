@@ -6,10 +6,10 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class RekeningBankDompet extends Model
+class Rekening extends Model
 {
     use HasFactory;
-    protected $table = 'rekening_bank_dompet';
+    protected $table = 'rekening';
     protected $guarded = [];
 
     public function scopeSearch(Builder $query, string $filters = null) : void
@@ -22,17 +22,12 @@ class RekeningBankDompet extends Model
                 // )
         );
     }
-
-    function bank_dompet()
-    {
-        return $this->belongsTo(BankDompet::class);
-    }
     function user()
     {
         return $this->belongsTo(User::class);
     }
-    function pemasukan()
+    function pemasukan_rekening()
     {
-        return $this->hasMany(Pemasukan::class);
+        return $this->hasMany(PemasukanRekening::class);
     }
 }

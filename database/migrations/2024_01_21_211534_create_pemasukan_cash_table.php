@@ -11,11 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('rekening_bank_dompet', function (Blueprint $table) {
+        Schema::create('pemasukan_cash', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('bank_dompet_id');
             $table->foreignId('user_id');
-            $table->string('nomor_rekening');
+            $table->string('deskripsi')->nullable();
+            $table->double('nominal')->default(0);
+            $table->string('bukti')->nullable();
+            $table->date('tanggal');
+            $table->time('waktu');
             $table->timestamps();
         });
     }
@@ -25,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('rekening_bank_dompet');
+        Schema::dropIfExists('pemasukan_cash');
     }
 };

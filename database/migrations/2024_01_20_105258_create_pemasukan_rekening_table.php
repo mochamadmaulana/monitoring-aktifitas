@@ -11,12 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('pemasukan', function (Blueprint $table) {
+        Schema::create('pemasukan_rekening', function (Blueprint $table) {
             $table->id();
-            $table->enum('jenis',['Transfer','Cash']);
             $table->foreignId('user_id');
-            $table->foreignId('rekening_bank_dompet_id')->nullable();
-            $table->string('deskripsi');
+            $table->foreignId('rekening_id');
+            $table->string('rekening_kredit',20);
+            $table->string('deskripsi')->nullable();
             $table->double('nominal')->default(0);
             $table->string('bukti')->nullable();
             $table->date('tanggal');
@@ -30,6 +30,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('pemasukan');
+        Schema::dropIfExists('pemasukan_rekening');
     }
 };

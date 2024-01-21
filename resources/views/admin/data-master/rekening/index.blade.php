@@ -1,31 +1,31 @@
-@extends('layout.app_admin',['title_satu'=>'View','title_dua'=>'Bank/E-Dompet'])
+@extends('layout.app_admin',['title_satu'=>'View','title_dua'=>'Rekening'])
 
 @push('btn-page-header')
 <div class="col-auto ms-auto d-print-none">
     <div class="btn-list">
         @if (request('search'))
-        <a href="{{ route('admin.data-master.bank-dompet.index') }}" class="btn btn-warning d-none d-sm-inline-block" >
+        <a href="{{ route('admin.data-master.rekening.index') }}" class="btn btn-warning d-none d-sm-inline-block" >
             <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-refresh" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M20 11a8.1 8.1 0 0 0 -15.5 -2m-.5 -4v4h4" /><path d="M4 13a8.1 8.1 0 0 0 15.5 2m.5 4v-4h-4" /></svg>
             Refresh
         </a>
-        <a href="{{ route('admin.data-master.bank-dompet.index') }}" class="btn btn-warning d-sm-none btn-icon">
+        <a href="{{ route('admin.data-master.rekening.index') }}" class="btn btn-warning d-sm-none btn-icon">
             <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-refresh" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M20 11a8.1 8.1 0 0 0 -15.5 -2m-.5 -4v4h4" /><path d="M4 13a8.1 8.1 0 0 0 15.5 2m.5 4v-4h-4" /></svg>
         </a>
         @endif
-        <a href="{{ route('admin.data-master.bank-dompet.create') }}" class="btn btn-primary d-none d-sm-inline-block" >
+        <a href="{{ route('admin.data-master.rekening.create') }}" class="btn btn-primary d-none d-sm-inline-block" >
             <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M12 5l0 14" /><path d="M5 12l14 0" /></svg>
-            Bank/E-Dompet
+            Rekening
         </a>
-        <a href="{{ route('admin.data-master.bank-dompet.create') }}" class="btn btn-primary d-sm-none btn-icon">
+        <a href="{{ route('admin.data-master.rekening.create') }}" class="btn btn-primary d-sm-none btn-icon">
             <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M12 5l0 14" /><path d="M5 12l14 0" /></svg>
         </a>
     </div>
 </div>
 @endpush
 @section('page-body')
-@if (session('success'))
+@if (session('alert_success'))
 <div class="alert alert-success alert-dismissible fade show" role="alert">
-    {{ session('success') }}
+    {{ session('alert_success') }}
     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
 </div>
 @endif
@@ -47,16 +47,22 @@
             <table class="table table-vcenter card-table table-hover">
                 <thead>
                     <tr>
-                        <th>Bank/E-Dompet</th>
+                        <th>Nama</th>
                         <th>Jenis</th>
+                        <th>No. Rekening</th>
+                        <th>Pemilik</th>
+                        <th>Saldo Aktif</th>
                         <th></th>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($bank_dompet as $bd)
+                    @foreach ($rekening as $rek)
                     <tr>
-                        <td>{{ $bd->nama }}</td>
-                        <td>{{ $bd->jenis }}</td>
+                        <td>{{ $rek->nama }}</td>
+                        <td><span class="badge rounded ms-2 <?= $rek->jenis == 'Bank' ? 'bg-blue' : 'bg-green' ?>">{{ $rek->jenis }}</span></td>
+                        <td>{{ $rek->nomor_rekening }}</td>
+                        <td>{{ $rek->user->nama_lengkap }}</td>
+                        <td>Rp.{{ number_format($rek->pemasukan_rekening->sum('nominal'),0) }}</td>
                         <td>
                             <div class="btn-list flex-nowrap float-end">
                                 <div class="dropdown">
@@ -64,11 +70,13 @@
                                         <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-settings" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M10.325 4.317c.426 -1.756 2.924 -1.756 3.35 0a1.724 1.724 0 0 0 2.573 1.066c1.543 -.94 3.31 .826 2.37 2.37a1.724 1.724 0 0 0 1.065 2.572c1.756 .426 1.756 2.924 0 3.35a1.724 1.724 0 0 0 -1.066 2.573c.94 1.543 -.826 3.31 -2.37 2.37a1.724 1.724 0 0 0 -2.572 1.065c-.426 1.756 -2.924 1.756 -3.35 0a1.724 1.724 0 0 0 -2.573 -1.066c-1.543 .94 -3.31 -.826 -2.37 -2.37a1.724 1.724 0 0 0 -1.065 -2.572c-1.756 -.426 -1.756 -2.924 0 -3.35a1.724 1.724 0 0 0 1.066 -2.573c-.94 -1.543 .826 -3.31 2.37 -2.37c1 .608 2.296 .07 2.572 -1.065z" /><path d="M9 12a3 3 0 1 0 6 0a3 3 0 0 0 -6 0" /></svg>
                                     </button>
                                     <div class="dropdown-menu dropdown-menu-end">
-                                        <a class="dropdown-item" href="{{ route('admin.data-master.bank-dompet.edit',$bd->id) }}">
+                                        <a class="dropdown-item" href="#">
+                                            Riwayat
+                                        </a>
+                                        <a class="dropdown-item" href="{{ route('admin.data-master.rekening.edit',$rek->id) }}">
                                             Edit
                                         </a>
-                                        {{-- <a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#modal-hapus"> --}}
-                                        <button class="dropdown-item" type="button" onclick="loadDeleteModal({{ $bd->id }}, `{{ $bd->nama_bank_dompet }}`)">
+                                        <button class="dropdown-item" type="button" onclick="loadDeleteModal({{ $rek->id }}, `{{ $rek->nomor_rekening }}`, `{{ $rek->nama }}`)">
                                             Hapus
                                         </button>
                                     </div>
@@ -81,7 +89,7 @@
             </table>
         </div>
         <div class="col-lg-12 p-3">
-            <span class="float-right">{{ $bank_dompet->links() }}</span>
+            <span class="float-right">{{ $rekening->links() }}</span>
         </div>
     </div>
 </div>
@@ -96,7 +104,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                Yakin, untuk menghapus : <span id="nama-bank_dompet"></span>
+                Yakin, untuk menghapus : <span id="jenis"></span> <span id="bank-rek"></span>
             </div>
             <div class="modal-footer">
                 <a href="#" class="btn btn-link link-secondary" data-bs-dismiss="modal">
@@ -113,8 +121,9 @@
 
 @push('js')
 <script>
-function loadDeleteModal(id, name) {
-    $('#nama-bank_dompet').html(name);
+function loadDeleteModal(id, rek, bank_rek) {
+    $('#bank-rek').html(rek);
+    $('#jenis').html(bank_rek);
     $('#modal-confirm_delete').attr('onclick', `confirmDelete(${id})`);
     $('#modal-hapus').modal('show');
 }
@@ -125,7 +134,7 @@ function confirmDelete(id) {
         }
     });
     $.ajax({
-        url: '{{ url('admin/data-master/bank-dompet') }}/' + id,
+        url: '{{ url('admin/data-master/rekening') }}/' + id,
         type: 'delete',
         success: function(response){
             //hide modal

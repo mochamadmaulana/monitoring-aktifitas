@@ -2,14 +2,14 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class BankDompet extends Model
+class PemasukanRekening extends Model
 {
     use HasFactory;
-    protected $table = 'bank_dompet';
+    protected $table = 'pemasukan_rekening';
     protected $guarded = [];
 
     public function scopeSearch(Builder $query, string $filters = null) : void
@@ -22,8 +22,12 @@ class BankDompet extends Model
                 // )
         );
     }
-    function rekening_bank_dompet()
+    function rekening()
     {
-        return $this->hasMany(RekeningBankDompet::class);
+        return $this->belongsTo(Rekening::class);
+    }
+    function user()
+    {
+        return $this->belongsTo(User::class);
     }
 }
