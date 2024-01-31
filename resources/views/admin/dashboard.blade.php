@@ -1,4 +1,4 @@
-@extends('layout.app_admin',['title_dua'=>'Dashboard'])
+@extends('layout.admin',['title_dua'=>'Dashboard'])
 
 @section('page-body')
 <div class="row row-deck row-cards mb-3">

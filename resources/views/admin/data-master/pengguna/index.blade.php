@@ -1,4 +1,4 @@
-@extends('layout.app_admin',['title_satu'=>'View','title_dua'=>'Pengguna'])
+@extends('layout.admin',['title_satu'=>'View','title_dua'=>'Pengguna'])
 
 @push('btn-page-header')
 <div class="col-auto ms-auto d-print-none">
@@ -73,7 +73,7 @@
                             @endif
                         </td>
                         <td>
-                            {{-- @if ($p->id != Auth::user()->id) --}}
+                            @if ($p->id != Auth::user()->id)
                             <div class="btn-list flex-nowrap float-end">
                                 <div class="dropdown">
                                     <button class="btn dropdown-toggle align-text-top" data-bs-toggle="dropdown">
@@ -89,7 +89,7 @@
                                     </div>
                                 </div>
                             </div>
-                            {{-- @endif --}}
+                            @endif
                         </td>
                     </tr>
                     @endforeach
@@ -112,7 +112,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                Yakin, untuk menghapus : <span id="nama-lengkap"></span>
+                Yakin, untuk menghapus pengguna <span class="fw-bold fst-italic" id="nama-lengkap"></span>
             </div>
             <div class="modal-footer">
                 <a href="#" class="btn btn-link link-secondary" data-bs-dismiss="modal">

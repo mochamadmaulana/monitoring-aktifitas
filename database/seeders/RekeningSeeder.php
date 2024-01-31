@@ -13,38 +13,31 @@ class RekeningSeeder extends Seeder
      */
     public function run(): void
     {
-        $bank = Rekening::insert([
+        Rekening::insert([
             [
-                'jenis' => 'Bank',
-                'nama' => 'Bank Rakyat Indonesia',
+                'bank_dompet_id' => '3',
+                'pemilik_id' => '1',
                 'nomor_rekening' => '384801059503539',
-                'user_id' => '1',
             ],
             [
-                'jenis' => 'Bank',
-                'nama' => 'Bank Central Asia',
+                'bank_dompet_id' => '4',
+                'pemilik_id' => '1',
                 'nomor_rekening' => '7125131921',
-                'user_id' => '1',
             ],
             [
-                'jenis' => 'Bank',
-                'nama' => 'SeeBank',
+                'bank_dompet_id' => '5',
+                'pemilik_id' => '1',
                 'nomor_rekening' => '901165398910',
-                'user_id' => '1',
             ],
-        ]);
-        $e_dompet = Rekening::insert([
             [
-                'jenis' => 'E-Dompet',
-                'nama' => 'Dana',
+                'bank_dompet_id' => '1',
+                'pemilik_id' => '1',
                 'nomor_rekening' => '083874966186',
-                'user_id' => '1',
             ],
             [
-                'jenis' => 'E-Dompet',
-                'nama' => 'ShopeePay',
+                'bank_dompet_id' => '2',
+                'pemilik_id' => '1',
                 'nomor_rekening' => '081389710228',
-                'user_id' => '1',
             ],
         ]);
     }

@@ -16,15 +16,22 @@ class Rekening extends Model
     {
         $query->when($filters ?? false, fn($query, $search) =>
             $query->where('nomor_rekening','like','%'.$search.'%')
-                // ->orWhere('nama_bank_dompet','like','%'.$search.'%')
-                // ->orWhereHas('kantor',fn($query) =>
-                //     $query->where('nama_kantor','like','%'.$search.'%')
-                // )
+                ->orWhereHas('pemilik',fn($query) =>
+                    $query->where('nama_lengkap','like','%'.$search.'%')
+                )
+                ->orWhereHas('bank_dompet',fn($query) =>
+                    $query->where('jenis','like','%'.$search.'%')
+                        ->orwhere('nama','like','%'.$search.'%')
+                )
         );
     }
-    function user()
+    function pemilik()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class,'pemilik_id','id');
+    }
+    function bank_dompet()
+    {
+        return $this->belongsTo(BankDompet::class);
     }
     function pemasukan_rekening()
     {

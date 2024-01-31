@@ -1,4 +1,4 @@
-@extends('layout.app_admin',['title_satu'=>'Form Tambah','title_dua'=>'Pengguna'])
+@extends('layout.admin',['title_satu'=>'Form Tambah','title_dua'=>'Pengguna'])
 
 @push('btn-page-header')
 <div class="col-auto ms-auto d-print-none">

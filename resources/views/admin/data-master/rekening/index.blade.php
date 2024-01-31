@@ -1,4 +1,4 @@
-@extends('layout.app_admin',['title_satu'=>'View','title_dua'=>'Rekening'])
+@extends('layout.admin',['title_satu'=>'View','title_dua'=>'Rekening'])
 
 @push('btn-page-header')
 <div class="col-auto ms-auto d-print-none">
@@ -58,10 +58,10 @@
                 <tbody>
                     @foreach ($rekening as $rek)
                     <tr>
-                        <td>{{ $rek->nama }}</td>
-                        <td><span class="badge rounded ms-2 <?= $rek->jenis == 'Bank' ? 'bg-blue' : 'bg-green' ?>">{{ $rek->jenis }}</span></td>
+                        <td>{{ $rek->bank_dompet->nama }}</td>
+                        <td><span class="badge rounded ms-2 <?= $rek->bank_dompet->jenis == 'Bank' ? 'bg-blue' : 'bg-green' ?>">{{ $rek->bank_dompet->jenis }}</span></td>
                         <td>{{ $rek->nomor_rekening }}</td>
-                        <td>{{ $rek->user->nama_lengkap }}</td>
+                        <td>{{ $rek->pemilik->nama_lengkap }}</td>
                         <td>Rp.{{ number_format($rek->pemasukan_rekening->sum('nominal'),0) }}</td>
                         <td>
                             <div class="btn-list flex-nowrap float-end">
@@ -70,15 +70,18 @@
                                         <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-settings" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M10.325 4.317c.426 -1.756 2.924 -1.756 3.35 0a1.724 1.724 0 0 0 2.573 1.066c1.543 -.94 3.31 .826 2.37 2.37a1.724 1.724 0 0 0 1.065 2.572c1.756 .426 1.756 2.924 0 3.35a1.724 1.724 0 0 0 -1.066 2.573c.94 1.543 -.826 3.31 -2.37 2.37a1.724 1.724 0 0 0 -2.572 1.065c-.426 1.756 -2.924 1.756 -3.35 0a1.724 1.724 0 0 0 -2.573 -1.066c-1.543 .94 -3.31 -.826 -2.37 -2.37a1.724 1.724 0 0 0 -1.065 -2.572c-1.756 -.426 -1.756 -2.924 0 -3.35a1.724 1.724 0 0 0 1.066 -2.573c-.94 -1.543 .826 -3.31 2.37 -2.37c1 .608 2.296 .07 2.572 -1.065z" /><path d="M9 12a3 3 0 1 0 6 0a3 3 0 0 0 -6 0" /></svg>
                                     </button>
                                     <div class="dropdown-menu dropdown-menu-end">
+                                        @if ($rek->pemasukan_rekening->sum('nominal') > 0)
                                         <a class="dropdown-item" href="#">
-                                            Riwayat
+                                            Mutasi
                                         </a>
+                                        @else
                                         <a class="dropdown-item" href="{{ route('admin.data-master.rekening.edit',$rek->id) }}">
                                             Edit
                                         </a>
                                         <button class="dropdown-item" type="button" onclick="loadDeleteModal({{ $rek->id }}, `{{ $rek->nomor_rekening }}`, `{{ $rek->nama }}`)">
                                             Hapus
                                         </button>
+                                        @endif
                                     </div>
                                 </div>
                             </div>
@@ -104,7 +107,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                Yakin, untuk menghapus : <span id="jenis"></span> <span id="bank-rek"></span>
+                Yakin, untuk menghapus rekening <span class="fw-bold fst-italic" id="jenis"></span> <span class="fw-bold fst-italic" id="bank-rek"></span>
             </div>
             <div class="modal-footer">
                 <a href="#" class="btn btn-link link-secondary" data-bs-dismiss="modal">

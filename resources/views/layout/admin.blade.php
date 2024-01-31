@@ -45,7 +45,7 @@
                 <h1 class="navbar-brand navbar-brand-autodark d-none-navbar-horizontal pe-0 pe-md-3">
                     <a href="{{ route('admin.dashboard') }}">
                         <img src="{{ asset('frontend/dist/img/logo-small.svg') }}" width="110" height="32" alt="Logo Brands" class="navbar-brand-image">
-                        Monas
+                        Mo-Finc
                     </a>
                 </h1>
                 <div class="navbar-nav flex-row order-md-last">
@@ -94,6 +94,9 @@
                                 <div class="dropdown-menu">
                                     <div class="dropdown-menu-columns">
                                         <div class="dropdown-menu-column">
+                                            <a class="dropdown-item {{ Request::is('admin/data-master/bank-dompet*') ? 'active' : '' }}" href="{{ route('admin.data-master.bank-dompet.index') }}">
+                                                Bank/E-Dompet
+                                            </a>
                                             <a class="dropdown-item {{ Request::is('admin/data-master/rekening*') ? 'active' : '' }}" href="{{ route('admin.data-master.rekening.index') }}">
                                                 Rekening
                                             </a>

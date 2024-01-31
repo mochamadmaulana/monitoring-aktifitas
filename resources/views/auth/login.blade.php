@@ -3,7 +3,7 @@
 @section('page-body')
 <div class="card card-md">
     <div class="card-body">
-        <h2 class="h2 text-center mb-4">Login akun <b class="fst-italic text-primary">MONAS</b></h2>
+        <h2 class="h2 text-center mb-4">Login akun <br><b class="fst-italic text-primary">Mo-Finc</b></h2>
         <form action="{{ route('login.store') }}" method="POST">
             @csrf
             <div class="mb-3">
@@ -18,7 +18,7 @@
                         <a href="#">Saya lupa password</a>
                     </span> --}}
                 </label>
-                <input type="password" name="password" class="form-control @error('password') is-invalid @enderror" placeholder="Masukkan Password..">
+                <input type="password" name="password" class="form-control @error('password') is-invalid @enderror" placeholder="Password..">
                 @error('password')<div class="invalid-feedback">{{ $message }}</div>@enderror
             </div>
             <div class="form-footer">
